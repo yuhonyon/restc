@@ -16,7 +16,22 @@
   <script src="https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/addon/display/autorefresh.min.js"></script>
   <script src="https://shadow.elemecdn.com/npm/json-format-safely@1.2.2/index.js"></script>
   <script src="https://shadow.elemecdn.com/npm/content-disposition-attachment@0.1.1/build@module=ContentDispositionAttachment&amp;format=umd!toes5!uglifyjs!index.js"></script>
+  <script src="https://wzrd.in/standalone/copy-to-clipboard@latest"></script>
   <script extract>
+    function getQueryString(name) {
+            if(window.name){
+              return window.name
+            }
+            var reg = new RegExp("(^|&|!)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.hash.substr(1).match(reg);
+            if (r != null) {
+              var val=unescape(r[2]);
+              window.name=val.replace(/\/$/,'')
+              return
+            }
+            return '';
+    }
+    getQueryString('url')
     class Configuration {
       static get watchList() {
         let value = {};
@@ -92,20 +107,20 @@
     class Logo extends Jinkela {
       get template() {
         return `
-          <a href="https://github.com/ElemeFE/restc" target="_blank"></a>
+          <a href="javascript:void(0);"></a>
         `;
       }
       get styleSheet() {
         return `
           :scope {
-            margin: 0 -8px;
-            padding: 8px;
-            width: 67px;
-            height: 25px;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIYAAAAyCAYAAACZIqPyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNDUyZmZhYi1mYzc2LTQ3NzktYWIxNi0yMWIwYzAwNmQ3MzkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REU5NDNBN0VBMDIxMTFFNkJFRjI4RDAyMkVFQTk1MEIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REU5NDNBN0RBMDIxMTFFNkJFRjI4RDAyMkVFQTk1MEIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpjNDUyZmZhYi1mYzc2LTQ3NzktYWIxNi0yMWIwYzAwNmQ3MzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6YzQ1MmZmYWItZmM3Ni00Nzc5LWFiMTYtMjFiMGMwMDZkNzM5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+3gUV5gAABPZJREFUeNrsXItxozAQlT1pQCmBlIBLwCWQEkgJUAIuwZRglwAlHCVYJYQSOJiTLoqy+gbEx3ozO54xIMTu29WuJDj0fY8ApIPkg8TAsQMK2BrqQRLhv26QYpAKuuBFQopb0OXugQe50t+LePAIXJAHnT0VckoOJTGwZPgI2HfkSHTEgEhR0LziEPKLzeLM2e8MHI9MhhIxQbkEvTqH6CuVNaEZ5K47SUeMNtjXmgxj4j6WeuUg2Ur7qbXrS7DlZHhAIXmrOAZ7BgRiBARiBARiBGyQGFeaofOScsdjLotnopt5xUL2z8sDydd4VEhpFdED8knbzIHksubOkyWemaSfOkT0ng/g+huSzFhOhnERjZOk/45aOG4r1/4nSnos62HcLNvrFe1gTf+iQf70dhjPj+n1de+Gh4PeZMgd7JLr2liiXI2pyCZ+iMR7bpaRIKXXjTN9naTN2qHEjCR9nArQSuhT5BgqUiDAiJgqK574XqXjvEMjIdoUKB1I0eyFGLqFOjKRAfnIkQBenzq2d5/RYaD8alyrekXf16sK2o8WzTQ7vcaqhAjKyhTnvXPKeld4cgaQRYZKMAIzREHb5z2UX5wiFu29GfRxvNcJ/VurEp/rQp/3vNdytaJK4o1LFMpCglHugicXknMTIGrJhrEP4P8LldeZhhEMPGthEA06X8TAHklRUCMQwbidgWdXEg+tJMoShy/sW9EaJEA0rNaUfEaeFGWynB8rDKhKuFqFV+qeK1qoIog95TGm9/9BjMygdJwCrUtnDYlBFEY3IXyN/C+XRw76mSqP40v7H8SQ1fQNWg6qcO8SyToLj7x6nk+IPTmkquS+8c97pAp4AEqoFiZGpCBMr5DMgBjEgBwJ1c0Nzb/PAnsmBjSUxxwXwKqkpUnhB9oXOiD5NTFAir7WYHwRw0cSzErexrRcjam34J0Rg0jmQUy9s0Tr2785RVRObOYx0p0pgUi8cIyOJ4sqIEP7ee+mpCItV8eJojdAOSlawWIOgLGfB0t50wwxbBbRpBqYY7m7M8yvphy6csBJGBf+RwxZWE0W9nKbpHSKTP1Ec6tOo9RsZmLMPYxD77Ge+XzjCFQiPplroyxffWLT9I3jHMsUTjC3Q0a68vWo6eCSCahqBjPxQEpVYmqjF+zwrL5fEyW65LND60Gr6E/q4f6dImpgi6EvcSCG76qwM61K1pRoyqoD3Tg/KvemqTBKR28nlhEjF5LXKxDKdcmhV2yVGAh9vRcaAwYfCVFrKquEKp+9TpgA5VxqQYxOUxr23L1ig+iUG5J/nsiywGZg23ZdN9yq7oV/2WZssMFWhU/g+kSxqTkRzs3o/yPSOTYDb+G9El35aFKaQVHlN1VLKyl3bYYXDFx/l+RT/GsKPY2U6Zz51haIQZB8p7cp4onKwZEQheJY84s+MScgDsTHz0gMpvQTsl/tZXMSFeCdtga4GxDU1LCyrQOd5XO2EzgNiC19BoFFDrbIl0qSOLacrNohxvZwsrYiyfDSUkI0yGy6nFAissQxAvqmW/Jns5BsCCwlz9iiGbdFHITPObI9CLxnnVHA3pALhCtERwovNQdsOscICMQICMQI2Cwxwsdg94n4t8RYfDEnYHKwUt+KGFCtLn5pJmB74KfUa+C40X6M8NHX50NjMpSET0Q/F6DPLIDEGKdr30Pk2D3YJx/ARcG/AgwApoTnnabyZYoAAAAASUVORK5CYII=');
+            margin: 0 -6px;
+            padding: 6px;
+            width: 100px;
+            height: 29px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAAAoCAYAAAAsTRLGAAAFYklEQVR4nO1c/Y3kKgxnnq4P0gnphGwlzFRCphKylYSphPfHO48IB7YhITvvlJ+00mqD8QfGGAMrxIULEZRSwTkXAOu6BmNM+Gm5LnwgpJShBGvt5TQXtrDWFh0mhBCklOGfnxbywudgHEfy++UwF9gYhuFymAt8LMvy0yJc+CQYY4r5y7quV9J7YQspZVjXNeswSqkghBA3aKyUCtM0iXEchfde3O938f39fSt3f+FvhTEmDMMghBDCey/meRav1+smxG+H0VqHeZ7/IJymSTyfz5uU8u1MwzCIYRiE914syyKWZRHP5/MPx4odEJiDACBEju5TIaUMwzBsbBDvKkAv+FmWZdeEM8YE6B/sFfcnpQzjOG7kgXGJbdxl0pfCUAhhU/XD1jcIWWmlkKKTUlavjVLKYIwJzrlsCF3XNVhrg9a6qf+UD2YfSj+tdTX/kv1AJ659W2SQUm7aSym3NsSqe7WoUSRWiDuoNc4YwxhT7Tha62o+JTjn2PyxxPMMGdJjAaDtYphWcMrOVBWSA+5M6zFo3InRGs2OkAELHm+6IwbiCJQUkVI2RZUSKOfsOYE2M7VywM6QAdMdUo7ienk2SieiPeTDnIaa4ZATxA6ulGLnOm/DZ6CUOkQ/CiVbYw7zjs49Q2ANcp7fM/qVlqdaGVNQDo5dFeiVv+SQi+gYf5C729GA936z5ZumCS0tx1tvIf7z9mmaeokn7vd7NQ1HHqrfVE/utxKvYRjE7TfGcWTrldOFJRvmhWn45e5SsDIyFjXidpzIB5d74tkCW2EOclGmpB+3NE4tK1iUOqocgVVsMX0w/u9lHOu0tN5SimHrNJbYcY0eQj+jleg4OyylFMkTcxhuesDZbXES6LSfXQ6DKUYNKKVQiQ6+c3KXXkYDOmttcM4F51zWWaDABQVELvY6TM3NNyrSpnpRBVwhRHnwMMGogaAUoegow9XcMa01GgalVLDWNld+Q8AdhkOPRe+cvBjSMWbJze2sRjlKEYoO1TLwoguAcm7OjNVa73KSGHsdhqs3p88Wh/lVYlSbsZ8F7/375LQ3lFJhnuePtcVP4K+/cdfqXMaYsCzLxzlLbXQ9mv9HRhjvfZH/GXJZa9k1ILjKAL/DlYNemKZJPB4PdlsM3vt6AVrXyz3rLEW3Z9uegkr80gSas0PL1X8AVM60N4cJgb9DpPKuNOFnyY01wgRqpcNo4Ts1aDVbS6qv2Gic+g+HN0Z/hMNwalCcrX7aB0turFGrUVoNCt85J8acKMNxgNholJG51V6sjyMcBmQpVbk5O7qcHKz2WKNWo7QaNFacAjXLWqquVHtOdKHqPkc5zF7k6k9Ye9bRAGaYVjqMNm7DPbNKZxlcNeCgZg0HfiWdjjhnO+vmQEkGjIZ0GCr8ttJhtHGb3jcBc3JyQ7nWOiilgta6qfL70w5TWs4x/h/vMEL0vdxVc1J9NM68LMblTfF/34cp7cWpPXrpe+tzylx/0zS11QoIlJ64nPUU9H6/i3Vd34ebsKT20DXl+3g8dlXJiw5DGa/0naN0rk3ub6/X6wYP647CPM/i6+sra7TH43HrPWgAeNeUvm3qgXmexTiOpLNg/N/fSgkitW0t5Ric7W6OJ3ZqfNRFcO6dljMR77y45QS4WoHlT8656uc1GP9NP+lgcOsNaVGMS5dWIblXDFpPja21VYbjbMlLgIGCgcUcPd1i11alc3bd+3Avh+y4wuDXPLqK6eLXjzUC1rQHULML8oOWB2wx4P5L6YWlcy5YazcOUuqH+3/jMIfpcZiYIlcZb3m9eeEklI4yOC8Wjpah9anvhRNROjQ8I7pc+J8ivlNcm3/1xr+6gpPWDVimuAAAAABJRU5ErkJggg==');
             background-position: 50% 50%;
             background-repeat: no-repeat;
-            background-size: 67px 25px;
+            background-size: 100px 29px;
           }
         `;
       }
@@ -208,7 +223,9 @@
       init() {
         this.block = new HighlightBlock().to(this);
       }
+
       update({ method, path, queryString, body, headers }) {
+
         let uri = path;
         if (queryString) uri += '?' + queryString;
         headers = Object.keys(headers)
@@ -220,7 +237,21 @@
           ...headers.map(({ key, value }) => [ key, value ].join(': '))
         ].join('\n');
         if (isBodyEnabled(method) && body) request = [ request, body ].join('\n\n');
+        let curl=[
+          ['curl','-X', method, getQueryString("url")+uri.replace(/^.*\/project\/test\/\d+/,''), ].join(' '),
+          ...headers.map(({ key, value }) => ['-H', "'"+key,':', value+"'" ].join(' ')),
+          ['-d',"'"+body+"'"].join(' ')
+        ].join(' \\\n')
+
+        request=[request,curl].join('\n\n\n')
+
+        let button=document.createElement('div');
+        button.innerHTML='<button style="margin-left:40px;background:#4c5264;color:#fff;padding: 5px 15px;border: 0;cursor: pointer;">复制CURL</button>';
+        button.onclick=function(){
+          copyToClipboard(curl)
+        }
         this.block.update(request);
+        this.block.body.after(button)
       }
     }
 
@@ -1015,7 +1046,7 @@
           'Content-Type': 'application/json'
         };
         headers = Object.assign({}, defaultHeaders, headers);
-        let uri = `//${location.host}${path}`;
+        let uri = path;
         if (queryString) uri += '?' + queryString;
         let options = { method, headers, credentials: 'include' };
         if (this.sideBar.isBodyVisible) options.body = body;

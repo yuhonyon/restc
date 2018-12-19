@@ -1,9 +1,9 @@
 {
-  "name": "restc",
-  "version": "0.3.2",
+  "name": "moapi-restc",
+  "version": "1.0.1",
   "description": "A server-side middleware to visualize REST requests.",
   "main": "index.js",
-  "repository": "https://github.com/ElemeFE/restc.git",
+  "repository": "https://github.com/yuhonyon/restc.git",
   "license": "MIT",
   "typings": "index.d.ts",
   "files": [
